@@ -1,0 +1,4 @@
+ [all]
+ vagrant ansible_host=192.168.11.126 ansible_user=vagrant ansible_become=true ansible_become_password=vagrant
+
+ devops ansible_host=192.168.11.119 ansible_user=devops ansible_become=true ansible_become_password=devops

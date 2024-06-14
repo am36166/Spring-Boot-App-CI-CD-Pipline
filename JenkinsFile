@@ -11,7 +11,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout by webhook') {
+        stage('Checkout') {
             steps {
                 script {
                     git branch: 'master', url: 'https://github.com/am36166/Spring-Boot-App.git'
@@ -41,6 +41,7 @@ pipeline {
             }
         }
 
+
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -50,6 +51,7 @@ pipeline {
                 }
             }
         }
+
 
         stage('Build Docker Image') {
             steps {
@@ -79,16 +81,15 @@ pipeline {
         }
 
 
-         stage('Deploy Elements into Kubernetees') {
+        stage('Déploiement YAML sur Ubuntu') {
             steps {
                 script {
-                    bat 'kubectl apply -f C:\\Users\\lenovo\\.jenkins\\jobs\\CI-CD\\workspace\\mysql-secrets.yaml'
-                    bat 'kubectl apply -f C:\\Users\\lenovo\\.jenkins\\jobs\\CI-CD\\workspace\\mysql-configMap.yaml'
-                    bat 'kubectl apply -f C:\\Users\\lenovo\\.jenkins\\jobs\\CI-CD\\workspace\\mysql-pvm-pvmc.yaml'
-                    bat 'kubectl apply -f C:\\Users\\lenovo\\.jenkins\\jobs\\CI-CD\\workspace\\db-deployment.yaml'
-                    bat 'kubectl apply -f C:\\Users\\lenovo\\.jenkins\\jobs\\CI-CD\\workspace\\app-deployment.yaml'
+                    def commandToExecute = 'ssh vagrant@192.168.11.132 "ansible-playbook -i /home/vagrant/inventory /home/vagrant/playbook.yml"'
+
+                    bat commandToExecute
                 }
             }
         }
+
     }
- }
+}
