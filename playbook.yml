@@ -4,13 +4,13 @@
   become: yes
   become_method: sudo
   become_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3  # Spécifie l'interpréteur Python 3
   tasks:
-
     - name: Create Docker network
       community.docker.docker_network:
         name: springboot-mysql-network
         state: present
-
 
     - name: Create Docker Compose file
       ansible.builtin.copy:
