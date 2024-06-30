@@ -56,4 +56,4 @@
 
     - name: Bring up Docker Compose stack
       ansible.builtin.shell: |
-        docker compose -f /home/devops/docker-compose.yml up -d
+        docker-compose -f /home/devops/docker-compose.yml up -d
